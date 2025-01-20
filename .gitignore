@@ -1,3 +1,4 @@
-/raw_data/*
-/logs/*
+/postgresql/raw_data/*
+/airflow_job/logs/*
 .DS_Store
+/plugins/*

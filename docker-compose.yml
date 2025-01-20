@@ -1,17 +1,33 @@
+version: "3.8"
+
 services:
   postgres:
+    build:
+      context: ./postgresql
     container_name: postgres
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
-    build:
-      context: .
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    command: postgres
+
+  airflow_job:
+    build:
+      context: ./airflow_job
+    container_name: airflow
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres:5432/airflow
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow_job/dags:/opt/airflow/dags
+      - ./airflow_job/logs:/opt/airflow/logs
 
 volumes:
   postgres_data:
