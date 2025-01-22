@@ -1,0 +1,17 @@
+name: online_retail_project
+version: 1.0.0
+config-version: 2
+
+profile: postgres_profile  # 이 이름을 profiles.yml의 이름과 일치시켜야 함
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  online_retail_project:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table

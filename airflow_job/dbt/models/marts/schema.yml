@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: transformed_data
+    schema: public  # PostgreSQL의 스키마 이름
+    tables:
+      - name: online_retail_transformed  # PostgreSQL의 테이블 이름

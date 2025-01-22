@@ -6,7 +6,18 @@ until pg_isready -h postgres -p 5432 -U airflow; do
     echo "Waiting for PostgreSQL to be ready..."
     sleep 2
 done
-
-# Airflow 데이터베이스 초기화 및 웹 서버 시작
+# 데이터베이스 초기화
 airflow db init
-exec airflow webserver
+
+# 기본 사용자 생성
+airflow users create \
+    --username admin \
+    --firstname Admin \
+    --lastname User \
+    --role Admin \
+    --email admin@example.com \
+    --password admin123
+
+# 전달된 명령 실행
+exec airflow webserver -p 8080 & airflow scheduler
+

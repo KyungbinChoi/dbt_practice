@@ -1,11 +1,13 @@
 # Airflow 베이스 이미지
-FROM apache/airflow:slim-latest-python3.8
+FROM apache/airflow:2.9.1-python3.10
+
 # root 사용자로 전환
 USER root
 
 # DBT 설치
 RUN apt-get update && apt-get install -y \
     build-essential \
+    python3-distutils \
     libpq-dev \
     && apt-get clean
 
