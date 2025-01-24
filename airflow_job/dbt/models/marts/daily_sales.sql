@@ -1,3 +1,4 @@
+-- daily sales summary
 WITH base AS (
     SELECT
         DATE(invoice_date) AS order_date,

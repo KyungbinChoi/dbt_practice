@@ -1,3 +1,4 @@
+-- monthly sales summary
 WITH base AS (
     SELECT
         EXTRACT(YEAR FROM invoice_date::DATE) AS order_year,

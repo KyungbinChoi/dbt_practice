@@ -32,6 +32,18 @@ services:
       - ./airflow_job/logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
       - ./airflow_job/dbt:/opt/airflow/dbt
-      
+  jupyter:
+    build:
+      context: ./jupyter
+      dockerfile: Dockerfile
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./jupyter/notebooks:/home/jovyan/work
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"  # JupyterLab 인터페이스 활성화
+    depends_on:
+      - postgres
 volumes:
   postgres_data:
